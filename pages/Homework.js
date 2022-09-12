@@ -6,8 +6,10 @@ import Header from '../components/Header';
 import TaskItem from '../components/TaskItem';
 import Wrapper from '../components/Wrapper';
 import AddButton from '../components/AddButton';
+import CreateTask from '../components/CreateTask';
 
 export default function Homework() {
+  const [modalOpened, setModalOpened] = useState(false);
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -29,6 +31,10 @@ export default function Homework() {
     },
   ]);
 
+  const handleModal = () => {
+    setModalOpened(!modalOpened);
+  };
+
   const handleStatus = (obj) => {
     console.log(obj);
     setTasks((prev) => [
@@ -44,12 +50,27 @@ export default function Homework() {
     ]);
   };
 
-  const remove = (id) =>{ 
+  const remove = (id) => {
     console.log(id);
-    setTasks(tasks.filter(item => item.id !== id)); 
-  }
+    setTasks(tasks.filter((item) => item.id !== id));
+  };
+
+  const addTask = (obj) => {
+    console.log(obj);
+    setTasks((prev) => [
+      ...prev,
+      {
+        id: new Date().getTime(),
+        status: false,
+        subjectTitle: obj.title,
+        taskText: obj.text,
+      },
+    ]);
+  };
   return (
     <>
+      {modalOpened ? <CreateTask onAdd={(obj) => addTask(obj)} onModal={handleModal} /> : null}
+
       <Header />
       <Wrapper>
         <View style={styles.taskList}>
@@ -66,7 +87,7 @@ export default function Homework() {
               ))
             : null}
         </View>
-        <AddButton />
+        <AddButton onModal={handleModal}/>
       </Wrapper>
     </>
   );

@@ -4,11 +4,11 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import Wrapper from './Wrapper';
 
-export default function AddButton() {
+export default function AddButton({onModal}) {
   return (
     <View>
       <Wrapper>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity onPress={onModal} style={styles.button}>
           <Text style={styles.buttonText}>Добавить</Text>
         </TouchableOpacity>
       </Wrapper>

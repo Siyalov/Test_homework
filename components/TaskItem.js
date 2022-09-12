@@ -4,6 +4,7 @@ import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 
 import Wrapper from './Wrapper';
 
+
 export default function TaskItem({
   title,
   text,
