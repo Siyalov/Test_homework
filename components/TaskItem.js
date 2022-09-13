@@ -39,7 +39,7 @@ export default function TaskItem({
           <Text style={styles.subject}>{title}</Text>
           <Text
             style={
-              (styles.task, { textDecoration: completed ? 'line-through' : '' })
+              [styles.task, {textDecoration: completed ? 'line-through' : ''} ]
             }>
             {text}
           </Text>
@@ -70,7 +70,8 @@ const styles = StyleSheet.create({
     fontWeight: 500,
   },
   task: {
-    fontSize: 13,
+    fontSize: 12,
+    maxWidth: 170,
   },
   trash: {
     background: '#F8F8F8',

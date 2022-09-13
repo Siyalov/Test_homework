@@ -1,16 +1,16 @@
 import React from 'react';
 import { useState } from 'react';
-import { View, StyleSheet,Text } from 'react-native';
+import { View, StyleSheet,Text,TouchableOpacity } from 'react-native';
 
 import Wrapper from './Wrapper';
 
-export default function Header() {
+export default function Header({handleOpened}) {
   return (
     <View style={styles.header}>
       <Wrapper>
-        <View style={styles.button}>
-        <Text>Показывать все задания</Text>
-        </View>
+        <TouchableOpacity style={styles.button} onPress={()=> handleOpened(true)}>
+        <Text style={styles.textButton}>Показывать все задания</Text>
+        </TouchableOpacity>
       </Wrapper>
     </View>
   );
@@ -25,6 +25,10 @@ const styles = StyleSheet.create({
     marginTop: 57,
     marginBottom: 53,
     borderRadius: 6,
+
+  },
+  textButton:{
+     color: '#3785CC',
   },
   header: {
     borderBottom: '2px solid #EEF8FD',
