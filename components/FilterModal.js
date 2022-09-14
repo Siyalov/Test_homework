@@ -9,7 +9,9 @@ import {
   SafeAreaView,
 } from 'react-native';
 
-export default function FilterModal({ onMode, handleOpened }) {
+import getModeTitle from '../utils/GetModeTitle';
+
+export default function FilterModal({ onMode, handleOpened, mode }) {
   const [titleState, setTitleState] = useState('');
   const [taskState, setTaskState] = useState('');
 
@@ -23,23 +25,44 @@ export default function FilterModal({ onMode, handleOpened }) {
               onMode('');
               handleOpened(false);
             }}>
-            <Text style={styles.title}>Показывать все задания</Text>
+            <Text
+              style={[
+                styles.title,
+                styles.buttonRight,
+                !getModeTitle(mode)[0] ? styles.buttonActive : null,
+              ]}>
+              Показывать все задания
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.button}
-             onPress={() => {
+            onPress={() => {
               onMode('completed');
-              handleOpened(false)}}>
-            <Text style={styles.title}>Выполненные</Text>
+              handleOpened(false);
+            }}>
+            <Text
+              style={[
+                styles.title,
+                styles.buttonRight,
+                getModeTitle(mode)[0] === 1 ? styles.buttonActive : null,
+              ]}>
+              Выполненные
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
               onMode('not_completed');
-              handleOpened(false)}}>
-            <Text style={(styles.title, styles.buttonRight)}>
+              handleOpened(false);
+            }}>
+            <Text
+              style={[
+                styles.title,
+                styles.buttonRight,
+                getModeTitle(mode)[0] === 2 ? styles.buttonActive : null,
+              ]}>
               Не выполненные
             </Text>
           </TouchableOpacity>

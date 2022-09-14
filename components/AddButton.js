@@ -4,7 +4,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import Wrapper from './Wrapper';
 
-export default function AddButton({onModal}) {
+export default function AddButton({ onModal }) {
   return (
     <View>
       <Wrapper>
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     background: '#3785CC',
   },
-  buttonText:{
+  buttonText: {
     color: '#FFFFFF',
   },
 });

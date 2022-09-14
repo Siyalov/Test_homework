@@ -11,20 +11,18 @@ import {
 
 import Wrapper from './Wrapper';
 
-export default function CreateTask({ onAdd,onModal }) {
+export default function CreateTask({ onAdd, onModal }) {
   const [titleState, setTitleState] = useState('');
   const [taskState, setTaskState] = useState('');
 
   const handleAdd = () => {
-     
     onAdd({
-     
       title: titleState,
       text: taskState,
     });
     setTaskState('');
     setTitleState('');
-    onModal()
+    onModal();
   };
 
   return (

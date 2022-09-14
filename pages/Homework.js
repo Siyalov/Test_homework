@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TextInput, Image } from 'react-native';
 
 import Header from '../components/Header';
@@ -13,6 +13,7 @@ export default function Homework() {
   const [modalOpened, setModalOpened] = useState(false);
   const [filterOpened, setFilterOpened] = useState(false);
   const [modeState, setModeState] = useState('');
+
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -45,6 +46,10 @@ export default function Homework() {
     setModalOpened(!modalOpened);
   };
 
+  useEffect(() => {
+    console.log(tasks);
+  }, [tasks]);
+
   const filterTasks = (mode = '') => {
     const modeFilter = mode.toLowerCase();
     switch (modeFilter) {
@@ -56,7 +61,7 @@ export default function Homework() {
         return tasks;
     }
   };
-  console.log(filterTasks('not_completed'));
+  //console.log(filterTasks('not_completed'));
 
   const handleStatus = (obj) => {
     console.log(obj);
@@ -96,10 +101,14 @@ export default function Homework() {
         <CreateTask onAdd={(obj) => addTask(obj)} onModal={handleModal} />
       ) : null}
       {filterOpened ? (
-        <FilterModal handleOpened={setFilterOpened} onMode={setModeState} />
+        <FilterModal
+          mode={modeState}
+          handleOpened={setFilterOpened}
+          onMode={setModeState}
+        />
       ) : null}
 
-      <Header handleOpened={setFilterOpened}/>
+      <Header handleOpened={setFilterOpened} mode={modeState} />
       <Wrapper>
         <View style={styles.taskList}>
           {tasks.length
