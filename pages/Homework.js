@@ -9,46 +9,19 @@ import AddButton from '../components/AddButton';
 import CreateTask from '../components/CreateTask';
 import FilterModal from '../components/FilterModal';
 
+import {addToStorage, getFromStorage} from '../utils/LocalStorageExplorer';
+
 export default function Homework() {
   const [modalOpened, setModalOpened] = useState(false);
   const [filterOpened, setFilterOpened] = useState(false);
   const [modeState, setModeState] = useState('');
 
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      status: false,
-      subjectTitle: 'Математика',
-      taskText: 'Стр. 4 , упр. 36 а, б.',
-    },
-    {
-      id: 2,
-      status: true,
-      subjectTitle: 'Русский язык',
-      taskText: 'Учебник, стр. 4, упр. 36 а, б.',
-    },
-    {
-      id: 3,
-      status: false,
-      subjectTitle: 'ИЗО',
-      taskText:
-        'Подготовить клей, ножницы, вл. салфетки, цветную бумагу, ножницы, шерстняые нитки',
-    },
-    {
-      id: 4,
-      status: true,
-      subjectTitle: 'Литература',
-      taskText: 'Учебник, стр. 4 , упр. 36 а, б.',
-    },
-  ]);
+  const [tasks, setTasks] = useState(getFromStorage('tasks') || []);
+  console.log(getFromStorage('tasks'))
 
   const handleModal = () => {
     setModalOpened(!modalOpened);
   };
-
-  useEffect(() => {
-    console.log(tasks);
-  }, [tasks]);
 
   const filterTasks = (mode = '') => {
     const modeFilter = mode.toLowerCase();
@@ -64,12 +37,15 @@ export default function Homework() {
   //console.log(filterTasks('not_completed'));
 
   const handleStatus = (obj) => {
-    console.log(obj);
+    console.log(obj, 'ttt');
+
     setTasks((prev) => [
       ...prev.map((item) => {
         if (item.id === obj.id) {
           return {
-            ...obj,
+            id: obj.id,
+            subjectTitle: obj.title,
+            taskText: obj.text,
             status: !obj.status,
           };
         }
@@ -95,6 +71,11 @@ export default function Homework() {
       },
     ]);
   };
+
+  useEffect(() => {
+    addToStorage('tasks', tasks);
+  }, [tasks]);
+
   return (
     <>
       {modalOpened ? (
@@ -119,7 +100,7 @@ export default function Homework() {
                   text={item.taskText}
                   status={item.status}
                   id={item.id}
-                  onStatus={() => handleStatus(obj)}
+                  onStatus={(obj) => handleStatus(obj)}
                   onRemove={() => remove(item.id)}
                 />
               ))

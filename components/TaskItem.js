@@ -14,7 +14,7 @@ export default function TaskItem({
   onRemove,
 }) {
   const [completed, setCompleted] = useState(status);
-  const handleCompleted = () => {
+  function handleCompleted()  {
     setCompleted(!completed);
     onStatus({ id, text, title, status });
   };
