@@ -1,10 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, GestureResponderEvent } from 'react-native';
 
 import Wrapper from './Wrapper';
 
-export default function AddButton({ onModal }) {
+export default function AddButton({ onModal }: { onModal: (event: GestureResponderEvent) => void }) {
   return (
     <View>
       <Wrapper>

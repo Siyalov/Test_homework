@@ -4,8 +4,15 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import Wrapper from './Wrapper';
 import GetModeTitle from '../utils/GetModeTitle';
+import { Mode } from '../types';
 
-export default function Header({ handleOpened, mode }) {
+export default function Header({
+  handleOpened,
+  mode,
+}: {
+  handleOpened: (flag: boolean) => void;
+  mode: Mode;
+}) {
   return (
     <View style={styles.header}>
       <Wrapper>
@@ -21,7 +28,9 @@ export default function Header({ handleOpened, mode }) {
 
 const styles = StyleSheet.create({
   button: {
-    border: '2px solid #3785CC;',
+    borderColor: '#3785CC',
+    borderWidth: 2,
+    borderStyle: 'solid',
     color: '#3785CC',
     textAlign: 'center',
     padding: 10,
@@ -33,6 +42,8 @@ const styles = StyleSheet.create({
     color: '#3785CC',
   },
   header: {
-    borderBottom: '2px solid #EEF8FD',
+    borderBottomWidth: 2,
+    borderBottomColor: '#EEF8FD',
+    borderStyle: 'solid',
   },
 });

@@ -7,11 +7,19 @@ import {
   TextInput,
   TouchableOpacity,
   SafeAreaView,
+  GestureResponderEvent,
 } from 'react-native';
+import { Obj } from '../pages/Homework';
 
 import Wrapper from './Wrapper';
 
-export default function CreateTask({ onAdd, onModal }) {
+export default function CreateTask({
+  onAdd,
+  onModal,
+}: {
+  onAdd: (obj: Obj) => void;
+  onModal: (event?: GestureResponderEvent) => void;
+}) {
   const [titleState, setTitleState] = useState('');
   const [taskState, setTaskState] = useState('');
 
@@ -50,7 +58,6 @@ export default function CreateTask({ onAdd, onModal }) {
           <TouchableOpacity onPress={onModal} style={styles.button}>
             <Text style={styles.title}>Отмена</Text>
           </TouchableOpacity>
-          <View style={styles.line}></View>
           <TouchableOpacity onPress={handleAdd} style={styles.button}>
             <Text style={(styles.title, styles.buttonRight)}>Сохранить</Text>
           </TouchableOpacity>
@@ -66,13 +73,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100vw',
     height: '100vh',
-    background: 'rgba(0, 0, 0, 0.2)',
-    position: 'fixed',
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    position: 'absolute',
     zIndex: 2,
   },
   modalCreate: {
     maxWidth: 270,
-    background: 'rgba(249, 249, 249, 0.94)',
+    backgroundColor: 'rgba(249, 249, 249, 0.94)',
     backdropFilter: 'blur(54.3656px)',
     paddingVertical: 18,
     paddingHorizontal: 20,
@@ -83,7 +90,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   title: {
-    fontWeight: 500,
+    fontWeight: "500",
     fontSize: 17,
     marginBottom: 4,
   },
@@ -92,22 +99,24 @@ const styles = StyleSheet.create({
     fontSize: 13,
     paddingHorizontal: 6,
     paddingVertical: 7,
-    background: 'white',
+    backgroundColor: 'white',
     marginBottom: 15,
-    border: '0.5px solid rgba(60, 60, 67, 0.3)',
+    borderColor: 'rgba(60, 60, 67, 0.3)',
+    borderStyle: 'solid',
+    borderWidth: 0.5,
     borderRadius: 7,
   },
   buttons: {
     justifyContent: 'space-between',
     flexDirection: 'row',
-    borderTop: '1px solid white',
+    // borderTop: '1px solid white',
   },
   button: {
     paddingTop: 10,
   },
   buttonRight: {
     color: '#3784CC',
-    fontWeight: 500,
+    fontWeight: "500",
     fontSize: 17,
   },
 });

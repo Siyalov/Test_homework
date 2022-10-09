@@ -8,29 +8,33 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
+import { Mode } from '../types';
 
 import getModeTitle from '../utils/GetModeTitle';
 
-export default function FilterModal({ onMode, handleOpened, mode }) {
+export default function FilterModal({
+  onMode,
+  handleOpened,
+  mode,
+}: {
+  onMode: (mode: Mode) => void,
+  handleOpened: (flag: boolean) => void,
+  mode: Mode;
+}) {
   const [titleState, setTitleState] = useState('');
   const [taskState, setTaskState] = useState('');
 
   return (
     <View style={styles.modal}>
       <View style={styles.modalFilter}>
-        <View style={styles.buttons}>
+        <View>
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
               onMode('');
               handleOpened(false);
             }}>
-            <Text
-              style={[
-                styles.title,
-                styles.buttonRight,
-                !getModeTitle(mode)[0] ? styles.buttonActive : null,
-              ]}>
+            <Text style={!getModeTitle(mode)[0] ? styles.buttonActive : null}>
               Показывать все задания
             </Text>
           </TouchableOpacity>
@@ -42,11 +46,7 @@ export default function FilterModal({ onMode, handleOpened, mode }) {
               handleOpened(false);
             }}>
             <Text
-              style={[
-                styles.title,
-                styles.buttonRight,
-                getModeTitle(mode)[0] === 1 ? styles.buttonActive : null,
-              ]}>
+              style={getModeTitle(mode)[0] === 1 ? styles.buttonActive : null}>
               Выполненные
             </Text>
           </TouchableOpacity>
@@ -58,11 +58,7 @@ export default function FilterModal({ onMode, handleOpened, mode }) {
               handleOpened(false);
             }}>
             <Text
-              style={[
-                styles.title,
-                styles.buttonRight,
-                getModeTitle(mode)[0] === 2 ? styles.buttonActive : null,
-              ]}>
+              style={getModeTitle(mode)[0] === 2 ? styles.buttonActive : null}>
               Не выполненные
             </Text>
           </TouchableOpacity>
@@ -79,24 +75,22 @@ const styles = StyleSheet.create({
     width: '100vw',
     height: '100vh',
     background: 'rgba(0, 0, 0, 0.2)',
-    position: 'fixed',
+    position: 'absolute',
     zIndex: 3,
   },
   modalFilter: {
     maxWidth: 300,
     background: 'rgba(249, 249, 249, 0.94)',
     backdropFilter: 'blur(54.3656px)',
-
     paddingHorizontal: 45,
     borderRadius: 14,
     textAlign: 'center',
   },
   button: {
-    fontWeight: 500,
+    fontWeight: "500",
     fontSize: 16,
     paddingVertical: 18,
   },
-
   buttonActive: {
     color: '#3785CC',
   },

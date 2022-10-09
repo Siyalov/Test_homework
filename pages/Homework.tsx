@@ -10,13 +10,28 @@ import CreateTask from '../components/CreateTask';
 import FilterModal from '../components/FilterModal';
 
 import {addToStorage, getFromStorage} from '../utils/LocalStorageExplorer';
+import { Mode } from '../types';
+
+export interface Task {
+  id: string | number,
+  subjectTitle: string,
+  taskText: string,
+  status: boolean,
+}
+
+export interface Obj {
+  id?: string | number,
+  title: string,
+  text: string,
+  status?: boolean,
+}
 
 export default function Homework() {
   const [modalOpened, setModalOpened] = useState(false);
   const [filterOpened, setFilterOpened] = useState(false);
-  const [modeState, setModeState] = useState('');
+  const [modeState, setModeState] = useState<Mode>('');
 
-  const [tasks, setTasks] = useState(getFromStorage('tasks') || []);
+  const [tasks, setTasks] = useState(getFromStorage('tasks') as Task[] || [])
   console.log(getFromStorage('tasks'))
 
   const handleModal = () => {
@@ -36,7 +51,7 @@ export default function Homework() {
   };
   //console.log(filterTasks('not_completed'));
 
-  const handleStatus = (obj) => {
+  const handleStatus = (obj: Obj) => {
     console.log(obj, 'ttt');
 
     setTasks((prev) => [
@@ -54,12 +69,12 @@ export default function Homework() {
     ]);
   };
 
-  const remove = (id) => {
+  const remove = (id: string | number) => {
     console.log(id);
     setTasks(tasks.filter((item) => item.id !== id));
   };
 
-  const addTask = (obj) => {
+  const addTask = (obj: Obj) => {
     console.log(obj);
     setTasks((prev) => [
       ...prev,

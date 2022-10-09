@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
+import { Obj } from '../pages/Homework';
 
 import Wrapper from './Wrapper';
 
@@ -12,12 +13,19 @@ export default function TaskItem({
   onStatus,
   id,
   onRemove,
+}: {
+  title: string,
+  text: string,
+  status: boolean,
+  onStatus: (obj: Obj) => void,
+  id: string | number,
+  onRemove: () => void,
 }) {
   const [completed, setCompleted] = useState(status);
   function handleCompleted()  {
     setCompleted(!completed);
     onStatus({ id, text, title, status });
-  };
+  }
   const handleRemove = () => {
     onRemove();
   };
@@ -39,7 +47,7 @@ export default function TaskItem({
           <Text style={styles.subject}>{title}</Text>
           <Text
             style={
-              [styles.task, {textDecoration: completed ? 'line-through' : ''} ]
+              [styles.task, {textDecorationLine: completed ? 'line-through' : 'none'} ]
             }>
             {text}
           </Text>
@@ -57,7 +65,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     paddingVertical: 13,
-    borderBottom: '2px solid #EEF8FD',
+    borderBottomWidth: 2,
+    borderBottomColor: '#EEF8FD',
+    borderStyle: 'solid',
   },
   left: {
     flexDirection: 'row',
@@ -67,7 +77,7 @@ const styles = StyleSheet.create({
   },
   subject: {
     fontSize: 17,
-    fontWeight: 500,
+    fontWeight: "500",
   },
   task: {
     fontSize: 12,
